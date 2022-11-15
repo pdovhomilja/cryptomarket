@@ -213,7 +213,7 @@ function ListingPage({}: Props) {
     }
   };
 
-  if (isLoading)
+  if (isLoading || makeOfferIsLoading || buyNowLoading || makeBidIsLoading)
     return (
       <div>
         <Header />
@@ -234,7 +234,15 @@ function ListingPage({}: Props) {
                 fill="currentFill"
               />
             </svg>
-            <span className="sr-only">Loading listings ...</span>
+            <span className="text-md">
+              {makeOfferIsLoading
+                ? "You are making an offer on blockchain ...."
+                : buyNowLoading
+                ? "You are now in buying process..."
+                : makeBidIsLoading
+                ? "You are making a bid..."
+                : "Loading listings ..."}
+            </span>
           </div>
         </div>
       </div>

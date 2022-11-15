@@ -40,7 +40,9 @@ const Home: NextPage = () => {
                   fill="currentFill"
                 />
               </svg>
-              <span className="sr-only">Loading listings ...</span>
+              <span className="text-md text-blue-600">
+                Loading data from blockchain...
+              </span>
             </div>
           </div>
         ) : (
