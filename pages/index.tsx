@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   return (
     <div className="">
       <Header />
-      <main className="max-w-6xl mx-auto py-2 px-6">
+      <main className="max-w-6xl mx-auto py-2 px-6 font-bold">
         {loadingListings ? (
           <div className="text-center">
             <div role="status">

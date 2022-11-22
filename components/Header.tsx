@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  ConnectWallet,
-  useAddress,
-  useMetamask,
-  useDisconnect,
-} from "@thirdweb-dev/react";
+import { useAddress, useMetamask, useDisconnect } from "@thirdweb-dev/react";
 import Link from "next/link";
 import {
   BellIcon,
