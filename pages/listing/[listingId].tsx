@@ -57,7 +57,7 @@ function ListingPage({}: Props) {
   //Use Offer
   const { data: offers } = useOffers(contract, listingId);
 
-  console.log(offers, "offers");
+  //console.log(offers, "offers");
 
   //Make offer
   const {
@@ -84,6 +84,10 @@ function ListingPage({}: Props) {
     error: acceptOfferError,
   } = useAcceptDirectListingOffer(contract);
 
+  //console.log(listingId, "listingId");
+  //console.log(contract, "contract");
+  //console.log(listing, "listing");
+
   useEffect(() => {
     //Check if listingID or contract exists
     if (!listingId || !contract || !listing) return;
@@ -93,7 +97,7 @@ function ListingPage({}: Props) {
     }
   }, [listingId, listing, contract]);
 
-  console.log(minimumNextBid);
+  //console.log(minimumNextBid, "minimumNextBid");
 
   const fetchMinNextBid = async () => {
     if (!listingId || !contract || !listing) return;
@@ -303,15 +307,14 @@ function ListingPage({}: Props) {
                       "..." +
                       offer.offeror.slice(-4)}
                   </p>
-                  <div>
-                    <p
-                      key={
-                        offer.listingId +
-                        offer.offeror +
-                        offer.totalOfferAmount.toString()
-                      }
-                      className="text-sm italic"
-                    >
+                  <div
+                    key={
+                      offer.listingId +
+                      offer.offeror +
+                      offer.totalOfferAmount.toString()
+                    }
+                  >
+                    <p className="text-sm italic">
                       {ethers.utils.formatEther(offer.totalOfferAmount)}{" "}
                       {NATIVE_TOKENS[network].symbol}
                     </p>
