@@ -10,6 +10,7 @@ import { BanknotesIcon, ClockIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useGlobalState } from "../state";
 
 const Home: NextPage = () => {
   const { contract } = useContract(
@@ -20,12 +21,19 @@ const Home: NextPage = () => {
   const { data: listings, isLoading: loadingListings } =
     useActiveListings(contract);
 
+  const [lang] = useGlobalState("lang");
   return (
     <div className="">
       <Header />
       <main className="max-w-6xl mx-auto py-2 px-6 font-bold">
         {loadingListings ? (
-          <LoadingSpinner message="Loading data from blockchain..." />
+          <LoadingSpinner
+            message={
+              lang === "cz"
+                ? "Nahrávám data z blockchainu ..."
+                : "Loading data from blockchain..."
+            }
+          />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto">
             {listings?.map((listing) => (
@@ -62,7 +70,11 @@ const Home: NextPage = () => {
                     >
                       <p>
                         {listing.type === ListingType.Direct
-                          ? "Buy now"
+                          ? lang === "cz"
+                            ? "Koupit"
+                            : "Buy now"
+                          : lang === "cz"
+                          ? "Aukce"
                           : "Auction"}
                       </p>
                       {listing.type === ListingType.Direct ? (

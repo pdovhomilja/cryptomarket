@@ -19,6 +19,7 @@ import {
 import network from "../utils/network";
 import { useRouter } from "next/router";
 import Footer from "../components/Footer";
+import { useGlobalState } from "../state";
 
 type Props = {};
 
@@ -140,16 +141,28 @@ function Create({}: Props) {
   };
   //console.log(ownedNfts);
 
+  const [lang] = useGlobalState("lang");
+
   return (
     <div>
       <Header />
       <main className="max-w-6xl mx-auto p-10 pt-2">
-        <h1 className="text-4xl font-bold">List an Item</h1>
+        <h1 className="text-4xl font-bold">
+          {lang === "cz"
+            ? "Nabídnout položku na Marketu"
+            : "List an Item on Market"}
+        </h1>
         <h2 className="text-xl font-semibold pt-5">
-          Select an Item you would like to Sell
+          {lang === "cz"
+            ? "Vyber položku, kterou chceš nabídnout k prodeji"
+            : "Select an Item you would like to Sell"}
         </h2>
         <hr className="mb-5" />
-        <p>Bellow you will find the NFT's you own in your wallet</p>
+        <p>
+          {lang === "cz"
+            ? "Níže naleznete Vaše NFT, které jsou spojené s Vaší peněženkou"
+            : "Bellow you will find the NFT's you own in your wallet"}
+        </p>
         <div className="flex overflow-x-scroll space-x-2 p-4">
           {ownedNfts?.data?.map((nft) => (
             <div
@@ -175,7 +188,9 @@ function Create({}: Props) {
             <div className="flex flex-col p-10">
               <div className="grid grid-cols-2 gap-5">
                 <label className="border-r font-light">
-                  Direct Listing / Fixed Price
+                  {lang === "cz"
+                    ? "Přímí prodej / Pevná cena"
+                    : "Direct Listing / Fixed Price"}
                 </label>
                 <input
                   className="ml-auto h-10 w-10"
@@ -183,14 +198,18 @@ function Create({}: Props) {
                   name="listingType"
                   value="directListing"
                 />
-                <label className="border-r font-light">Auction</label>
+                <label className="border-r font-light">
+                  {lang === "cz" ? "Aukce" : "Auction"}
+                </label>
                 <input
                   className="ml-auto h-10 w-10"
                   type="radio"
                   name="listingType"
                   value="auctionListing"
                 />
-                <label className="border-r font-light">Price</label>
+                <label className="border-r font-light">
+                  {lang === "cz" ? "Cena" : "Price"}
+                </label>
                 <input
                   type="text"
                   placeholder="0.05"
@@ -202,7 +221,9 @@ function Create({}: Props) {
                 className="bg-[#6D285F] text-white rounded-lg p-4 mt-8"
                 type="submit"
               >
-                Create listing
+                {lang === "cz"
+                  ? "Nabídnout položku na Marketu"
+                  : "Create listing on Market"}
               </button>
             </div>
           </form>

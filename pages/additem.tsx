@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useGlobalState } from "../state";
 
 type Props = {};
 
@@ -23,6 +24,8 @@ function addItem({}: Props) {
     process.env.NEXT_PUBLIC_COLLECTION_CONTRACT,
     "nft-collection"
   );
+
+  console.log(contract, "Contract");
 
   const mintNft = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,6 +65,7 @@ function addItem({}: Props) {
   };
   //console.log(address);
   //console.log(contract);
+  const [lang] = useGlobalState("lang");
   if (isLoading)
     return (
       <div>

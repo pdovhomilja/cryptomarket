@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useAddress, useMetamask, useDisconnect } from "@thirdweb-dev/react";
 import Link from "next/link";
 import {
@@ -8,6 +8,8 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { US, CZ } from "country-flag-icons/react/3x2";
+import { setGlobalState, useGlobalState } from "../state/index.js";
 
 type Props = {};
 
@@ -15,6 +17,13 @@ function Header({}: Props) {
   const connetWithMetamask = useMetamask();
   const address = useAddress();
   const disconnect = useDisconnect();
+
+  //Set language
+  const setLang = (e: string) => {
+    setGlobalState("lang", e);
+  };
+
+  const [lang] = useGlobalState("lang");
 
   return (
     <div className="max-w-6xl  mx-auto p-2">
@@ -29,19 +38,26 @@ function Header({}: Props) {
               onClickCapture={connetWithMetamask}
               className="connectWalletBtn"
             >
-              Connect Your Wallet
+              {lang === "cz" ? "Připojit peněženku" : "Connect Your Wallet"}
             </button>
           )}
-          <p className="headerLink">Daily deals</p>
-          <p className="headerLink">Help & Contacts</p>
+          <p className="headerLink">
+            {lang === "cz" ? "Nabídka dne" : "Daily deals"}
+          </p>
+          <p className="headerLink">{lang === "cz" ? "Kontakt" : "Contact"}</p>
         </div>
         <div className="flex items-center space-x-4 text-sm">
-          <p className="headerLink">Watchlist</p>
+          <p onClick={() => setLang("en")} className="headerLink">
+            <US title="United States" className="w-5 h-5" />
+          </p>
+          <p onClick={() => setLang("cz")} className="headerLink">
+            <CZ title="Czechia" className="w-5 h-5" />
+          </p>
           <Link
             href="/additem"
             className="flex items-center hover:link animate-pulse"
           >
-            Add to inventory
+            {lang === "cz" ? "Přidat novou položku" : "Add to inventory"}
             <ChevronDownIcon className="h-4" />
           </Link>
         </div>
@@ -65,22 +81,26 @@ function Header({}: Props) {
           <input
             className="flex-1 outline-none text-[#6D285F]"
             type="text"
-            placeholder="Search for anything"
+            placeholder={
+              lang === "cz"
+                ? "Zadej co chceš hledat ..."
+                : "Search for anything"
+            }
           />
         </div>
 
         <button className="hidden sm:inline bg-[#6D285F] text-white px-5 md:px-10 py-2 border-2 border-[#6D285F]">
-          Search
+          {lang === "cz" ? "Vyhledat" : "Search"}
         </button>
 
         <Link href="/create">
           <button className="border-2 border-[#6D285F] px-5 mx:px-10 py-2 text-[#6D285F] hover:bg-[#6D285F]/50 hover:text-white cursor-pointer">
-            List Item
+            {lang === "cz" ? "Zalistovat položku" : "List item"}
           </button>
         </Link>
       </section>
       <hr />
-      <section className="flex py-3 space-x-6 text-xs md:text-sm whitespace-nowrap justify-center px-6">
+      <section className="hidden py-3 space-x-6 text-xs md:text-sm whitespace-nowrap justify-center px-6">
         <p className="link ">Home</p>
         <p className="link ">Elektronics</p>
         <p className="link ">Computers</p>

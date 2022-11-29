@@ -272,7 +272,7 @@ function ListingPage({}: Props) {
             </p>
             <button
               onClick={buyNft}
-              className="col-start-2 mt-2 bg-blue-600 font-bold text-white rounded-full w-44 py-4 px-10"
+              className="col-start-2 mt-2 bg-[#6D285F] font-bold text-white rounded-full w-44 py-4 px-10"
             >
               Buy now
             </button>
