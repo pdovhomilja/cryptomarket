@@ -12,7 +12,7 @@
   }
 
   .link {
-    @apply hover:text-blue-500 hover:underline cursor-pointer text-gray-600;
+    @apply hover:text-[#6D285F] hover:underline cursor-pointer text-gray-600;
   }
 
   .card {

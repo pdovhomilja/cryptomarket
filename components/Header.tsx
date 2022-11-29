@@ -36,14 +36,13 @@ function Header({}: Props) {
           <p className="headerLink">Help & Contacts</p>
         </div>
         <div className="flex items-center space-x-4 text-sm">
-          <p className="headerLink">Ship to</p>
-          <p className="headerLink">Sell</p>
           <p className="headerLink">Watchlist</p>
-          <Link href="/additem" className="flex items-center hover:link">
+          <Link
+            href="/additem"
+            className="flex items-center hover:link animate-pulse"
+          >
             Add to inventory
             <ChevronDownIcon className="h-4" />
-            <BellIcon className="h-6 w-6 " />
-            <ShoppingCartIcon className="h-6 w-6" />
           </Link>
         </div>
       </nav>
@@ -60,15 +59,11 @@ function Header({}: Props) {
             />
           </Link>
         </div>
-        <button className="hidden lg:flex items-center space-x-2 w-20 ">
-          <p className="text-gray-600 text-sm">Shop by category</p>
-          <ChevronDownIcon className="h-4 flex-shrink-0" />
-        </button>
 
-        <div className="flex items-center space-x-2 px-2 md:px-5 py-2 border-black border-2 flex-1">
+        <div className="flex items-center space-x-2 px-2 md:px-5 py-2 border-[#6D285F] border-2 flex-1">
           <MagnifyingGlassIcon className="text-gray-400 w-5" />
           <input
-            className="flex-1 outline-none"
+            className="flex-1 outline-none text-[#6D285F]"
             type="text"
             placeholder="Search for anything"
           />

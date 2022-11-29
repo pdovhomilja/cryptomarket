@@ -18,6 +18,7 @@ import {
 } from "@thirdweb-dev/sdk";
 import network from "../utils/network";
 import { useRouter } from "next/router";
+import Footer from "../components/Footer";
 
 type Props = {};
 
@@ -207,6 +208,7 @@ function Create({}: Props) {
           </form>
         )}
       </main>
+      <Footer />
     </div>
   );
 }
