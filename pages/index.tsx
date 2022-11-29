@@ -8,6 +8,7 @@ import {
 import { ListingType } from "@thirdweb-dev/sdk";
 import { BanknotesIcon, ClockIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import Footer from "../components/Footer";
 
 const Home: NextPage = () => {
   const { contract } = useContract(
@@ -75,8 +76,8 @@ const Home: NextPage = () => {
                     <div
                       className={`flex items-center space-x-1 justify-end text-xs border w-fit ml-auto p-2 rounded-lg text-white ${
                         listing.type === ListingType.Direct
-                          ? "bg-blue-500"
-                          : "bg-red-500"
+                          ? "bg-[#6D285F]"
+                          : "bg-[#EF85D1]"
                       }`}
                     >
                       <p>
@@ -97,6 +98,7 @@ const Home: NextPage = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

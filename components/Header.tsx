@@ -54,7 +54,7 @@ function Header({}: Props) {
             <Image
               className="w-full h-full object-contain"
               alt=""
-              src="http://links.papareact.com/bdb"
+              src="/images/mintit-high-resolution-logo-color-on-transparent-background.png"
               width={100}
               height={100}
             />
@@ -74,12 +74,12 @@ function Header({}: Props) {
           />
         </div>
 
-        <button className="hidden sm:inline bg-blue-600 text-white px-5 md:px-10 py-2 border-2 border-blue-600">
+        <button className="hidden sm:inline bg-[#6D285F] text-white px-5 md:px-10 py-2 border-2 border-[#6D285F]">
           Search
         </button>
 
         <Link href="/create">
-          <button className="border-2 border-blue-600 px-5 mx:px-10 py-2 text-blue-600 hover:bg-blue-600/50 hover:text-white cursor-pointer">
+          <button className="border-2 border-[#6D285F] px-5 mx:px-10 py-2 text-[#6D285F] hover:bg-[#6D285F]/50 hover:text-white cursor-pointer">
             List Item
           </button>
         </Link>
