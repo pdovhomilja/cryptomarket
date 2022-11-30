@@ -46,9 +46,13 @@ function Header({}: Props) {
           </p>
           <p className="headerLink">{lang === "cz" ? "Kontakt" : "Contact"}</p>
         </div>
-        <div>
+        <div className="flex flex-row justify-center items-center ">
           <p className="border border-red-700 rounded-md px-2 text-white bg-red-500">
             Network: Polygon - Mumbai - Testnet
+          </p>
+          <p className="px-2"></p>
+          <p className="border border-blue-700 rounded-md px-2 text-white bg-blue-500">
+            <Link href="https://faucet.polygon.technology/">Free: Tokens</Link>
           </p>
         </div>
         <div className="flex items-center space-x-4 text-sm">
