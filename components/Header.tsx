@@ -44,7 +44,11 @@ function Header({}: Props) {
           <p className="headerLink">
             {lang === "cz" ? "Nabídka dne" : "Daily deals"}
           </p>
-          <p className="headerLink">{lang === "cz" ? "Kontakt" : "Contact"}</p>
+          <Link href="/contact">
+            <p className="headerLink">
+              {lang === "cz" ? "Kontakt" : "Contact"}
+            </p>
+          </Link>
         </div>
         <div className="flex flex-row justify-center items-center ">
           <p className="border border-red-700 rounded-md px-2 text-white bg-red-500">
