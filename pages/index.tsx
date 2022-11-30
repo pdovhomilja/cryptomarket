@@ -22,6 +22,10 @@ const Home: NextPage = () => {
     useActiveListings(contract);
 
   const [lang] = useGlobalState("lang");
+
+  //Prepare for search in NFT
+  const search = "";
+
   return (
     <div className="">
       <Header />
@@ -36,57 +40,66 @@ const Home: NextPage = () => {
           />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto">
-            {listings?.map((listing) => (
-              <Link
-                className="flex flex-col card hover:scale-105 transition-all duration-150 ease-out"
-                key={listing.id}
-                href={`/listing/${listing.id}`}
-              >
-                <div>
-                  <div className="flex-1 flex flex-col pb-2 items-center">
-                    <MediaRenderer className="w-44" src={listing.asset.image} />
-                  </div>
-                  <div className="pt-2 space-y-4">
-                    <div>
-                      <h2 className="text-lg truncate">{listing.asset.name}</h2>
-                      <hr />
-                      <p className="truncate text-sm text-gray-600 mt-2">
-                        {listing.asset.description}
-                      </p>
+            {listings
+              ?.filter((listing) =>
+                listing.asset.name?.toString().toLowerCase().match(search)
+              )
+              ?.map((listing) => (
+                <Link
+                  className="flex flex-col card hover:scale-105 transition-all duration-150 ease-out"
+                  key={listing.id}
+                  href={`/listing/${listing.id}`}
+                >
+                  <div>
+                    <div className="flex-1 flex flex-col pb-2 items-center">
+                      <MediaRenderer
+                        className="w-44"
+                        src={listing.asset.image}
+                      />
                     </div>
-                    <p>
-                      <span className="font-bold mr-2">
-                        Price:{" "}
-                        {listing.buyoutCurrencyValuePerToken.displayValue}
-                      </span>
-                      {listing.buyoutCurrencyValuePerToken.symbol}
-                    </p>
-                    <div
-                      className={`flex items-center space-x-1 justify-end text-xs border w-fit ml-auto p-2 rounded-lg text-white ${
-                        listing.type === ListingType.Direct
-                          ? "bg-[#6D285F]"
-                          : "bg-[#EF85D1]"
-                      }`}
-                    >
+                    <div className="pt-2 space-y-4">
+                      <div>
+                        <h2 className="text-lg truncate">
+                          {listing.asset.name}
+                        </h2>
+                        <hr />
+                        <p className="truncate text-sm text-gray-600 mt-2">
+                          {listing.asset.description}
+                        </p>
+                      </div>
                       <p>
-                        {listing.type === ListingType.Direct
-                          ? lang === "cz"
-                            ? "Koupit"
-                            : "Buy now"
-                          : lang === "cz"
-                          ? "Aukce"
-                          : "Auction"}
+                        <span className="font-bold mr-2">
+                          Price:{" "}
+                          {listing.buyoutCurrencyValuePerToken.displayValue}
+                        </span>
+                        {listing.buyoutCurrencyValuePerToken.symbol}
                       </p>
-                      {listing.type === ListingType.Direct ? (
-                        <BanknotesIcon className="h-4" />
-                      ) : (
-                        <ClockIcon className="h-4" />
-                      )}
+                      <div
+                        className={`flex items-center space-x-1 justify-end text-xs border w-fit ml-auto p-2 rounded-lg text-white ${
+                          listing.type === ListingType.Direct
+                            ? "bg-[#6D285F]"
+                            : "bg-[#EF85D1]"
+                        }`}
+                      >
+                        <p>
+                          {listing.type === ListingType.Direct
+                            ? lang === "cz"
+                              ? "Koupit"
+                              : "Buy now"
+                            : lang === "cz"
+                            ? "Aukce"
+                            : "Auction"}
+                        </p>
+                        {listing.type === ListingType.Direct ? (
+                          <BanknotesIcon className="h-4" />
+                        ) : (
+                          <ClockIcon className="h-4" />
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
           </div>
         )}
       </main>
