@@ -46,6 +46,11 @@ function Header({}: Props) {
           </p>
           <p className="headerLink">{lang === "cz" ? "Kontakt" : "Contact"}</p>
         </div>
+        <div>
+          <p className="border border-red-700 rounded-md px-2 text-white bg-red-500">
+            Network: Polygon - Mumbai - Testnet
+          </p>
+        </div>
         <div className="flex items-center space-x-4 text-sm">
           <p onClick={() => setLang("en")} className="headerLink">
             <US title="United States" className="w-5 h-5" />

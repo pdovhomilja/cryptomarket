@@ -25,7 +25,7 @@ function addItem({}: Props) {
     "nft-collection"
   );
 
-  console.log(contract, "Contract");
+  //console.log(contract, "Contract");
 
   const mintNft = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,11 +78,18 @@ function addItem({}: Props) {
     <div>
       <Header />
       <main className="max-w-6xl mx-auto p-10 border">
-        <h1 className="text-4xl font-bold">Add an Item to the Market place</h1>
-        <h2 className="text-xl font-semibold pt-5">Items detail</h2>
+        <h1 className="text-4xl font-bold">
+          {lang === "cz"
+            ? "Přidat novou položku do Marketu"
+            : "Add an Item to the Market place"}
+        </h1>
+        <h2 className="text-xl font-semibold pt-5">
+          {lang === "cz" ? "Detaily položky" : "Items detail"}
+        </h2>
         <p className="pb-5">
-          By adding an item to the marketplace, your are essentially Minting an
-          NFT ot the item into your wallet which we can then list for sale!
+          {lang === "cz"
+            ? "Přidáním nové položky do Marketu, vytvoříte nové NFT, které se následně zobrazí ve Vaší peněžence a budete ho moci nabídnout/zalistovat na Marketu ve formě přímého prodeje  nebo aukce"
+            : "By adding an item to the marketplace, your are essentially Minting an NFT ot the item into your wallet which we can then list for sale!"}
         </p>
         <div className="flex flex-col justify-center items-center md:flex-row md:space-x-5 pt-5">
           <img
@@ -96,19 +103,25 @@ function addItem({}: Props) {
             action=""
           >
             <label className="font-light" htmlFor="">
-              Name of Item
+              {lang === "cz" ? "Název položky" : "Name of item"}
             </label>
             <input
               className="formField"
-              placeholder="Name of item...."
+              placeholder={
+                lang === "cz" ? "Pojmenujte Váš item" : "Name of item ..."
+              }
               type="text"
               name="name"
               id="name"
             />
-            <label htmlFor="">Description</label>
+            <label htmlFor="">
+              {lang === "cz" ? "Popis položky" : "Description"}
+            </label>
             <input
               className="formField"
-              placeholder="Enter Description"
+              placeholder={
+                lang === "cz" ? "Popis položky ..." : "Description of item ...."
+              }
               type="text"
               name="description"
               id="description"
@@ -126,9 +139,11 @@ function addItem({}: Props) {
             />
             <button
               type="submit"
-              className="bg-[#6D285F] font-bold text-white rounded-full py-4 px-10 w-56 mt-5 md:mt-auto mx-auto md:ml-auto"
+              className="bg-[#6D285F] font-bold text-white rounded-full py-4 px-10 mt-5 md:mt-auto mx-auto md:ml-auto"
             >
-              Add/Mint Item
+              {lang === "cz"
+                ? "Vložit/Vymintovat položku(NFT)"
+                : "Add/Mint Item (NFT)"}
             </button>
           </form>
         </div>
