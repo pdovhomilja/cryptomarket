@@ -11,6 +11,7 @@ import Link from "next/link";
 import Footer from "../components/Footer";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useGlobalState } from "../state";
+import { useLangContext } from "../context/lang";
 
 const Home: NextPage = () => {
   const { contract } = useContract(
@@ -21,10 +22,12 @@ const Home: NextPage = () => {
   const { data: listings, isLoading: loadingListings } =
     useActiveListings(contract);
 
-  const [lang] = useGlobalState("lang");
+  //const [lang] = useGlobalState("lang");
+  const [lang, setLang] = useLangContext();
+  console.log(lang, "this is lang from context");
 
-  //Prepare for search in NFT
-  const search = "";
+  //Search in NFT
+  const [search] = useGlobalState("search");
 
   return (
     <div className="">

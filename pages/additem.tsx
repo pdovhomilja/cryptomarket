@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { useGlobalState } from "../state";
+import { useLangContext } from "../context/lang";
 
 type Props = {};
 
@@ -65,7 +65,9 @@ function addItem({}: Props) {
   };
   //console.log(address);
   //console.log(contract);
-  const [lang] = useGlobalState("lang");
+
+  const [lang] = useLangContext();
+
   if (isLoading)
     return (
       <div>

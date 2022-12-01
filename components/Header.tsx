@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useAddress, useMetamask, useDisconnect } from "@thirdweb-dev/react";
 import Link from "next/link";
 import {
@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import { US, CZ } from "country-flag-icons/react/3x2";
 import { setGlobalState, useGlobalState } from "../state/index.js";
+import { useLangContext } from "../context/lang.js";
 
 type Props = {};
 
@@ -19,11 +20,24 @@ function Header({}: Props) {
   const disconnect = useDisconnect();
 
   //Set language
+  /*
   const setLang = (e: string) => {
     setGlobalState("lang", e);
   };
+  */
+  //Set searchQuery
+  const setSearch = (q: string) => {
+    setGlobalState("search", q);
+  };
 
-  const [lang] = useGlobalState("lang");
+  //const [lang] = useGlobalState("lang");
+  const [lang, setLang] = useLangContext();
+
+  console.log(lang, "lange header");
+
+  const [searchValue, setSearchValue] = useState("");
+  //Set search Query to global state
+  setSearch(searchValue);
 
   return (
     <div className="max-w-6xl  mx-auto p-2">
@@ -94,6 +108,9 @@ function Header({}: Props) {
           <input
             className="flex-1 outline-none text-[#6D285F]"
             type="text"
+            name="search"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
             placeholder={
               lang === "cz"
                 ? "Zadej co chceš hledat ..."

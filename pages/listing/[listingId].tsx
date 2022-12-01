@@ -21,12 +21,15 @@ import network from "../../utils/network";
 import { ethers } from "ethers";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Footer from "../../components/Footer";
+import { useLangContext } from "../../context/lang";
 
 type Props = {};
 
 function ListingPage({}: Props) {
   const router = useRouter();
   const address = useAddress();
+  //GEt lang global state
+  const [lang, setLang] = useLangContext();
 
   //GET Bid amount from state by useState hook
   const [bidAmount, setBidAmount] = useState("");

@@ -19,7 +19,7 @@ import {
 import network from "../utils/network";
 import { useRouter } from "next/router";
 import Footer from "../components/Footer";
-import { useGlobalState } from "../state";
+import { useLangContext } from "../context/lang";
 
 type Props = {};
 
@@ -141,7 +141,8 @@ function Create({}: Props) {
   };
   //console.log(ownedNfts);
 
-  const [lang] = useGlobalState("lang");
+  //Get Language from Global state
+  const [lang, setLang] = useLangContext();
 
   return (
     <div>
