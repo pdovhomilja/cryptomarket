@@ -33,8 +33,6 @@ function Header({}: Props) {
   //const [lang] = useGlobalState("lang");
   const [lang, setLang] = useLangContext();
 
-  console.log(lang, "lange header");
-
   const [searchValue, setSearchValue] = useState("");
   //Set search Query to global state
   setSearch(searchValue);

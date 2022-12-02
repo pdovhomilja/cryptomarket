@@ -28,6 +28,7 @@ type Props = {};
 function ListingPage({}: Props) {
   const router = useRouter();
   const address = useAddress();
+
   //GEt lang global state
   const [lang, setLang] = useLangContext();
 
@@ -121,11 +122,13 @@ function ListingPage({}: Props) {
   const formatPlaceholder = () => {
     if (!listing) return;
     if (listing.type === ListingType.Direct) {
-      return "Enter Offer Amount";
+      return lang === "cz" ? "Vložte nabídku" : "Enter Offer Amount";
     }
     if (listing.type === ListingType.Auction) {
       return Number(minimumNextBid?.displayValue) === 0
-        ? "Enter Bid Amount"
+        ? lang === "cz"
+          ? "Vložit částku příhozu"
+          : "Enter Bid Amount"
         : `${minimumNextBid?.displayValue} ${minimumNextBid?.symbol} or more`;
     }
   };
@@ -142,12 +145,20 @@ function ListingPage({}: Props) {
       { id: listingId, buyAmount: 1, type: listing.type },
       {
         onSuccess(data, variables, context) {
-          alert("NFT bought successfully!");
+          alert(
+            lang === "cz"
+              ? "Nákup vybraného NFT proběhl v pořádku!"
+              : "NFT bought successfully!"
+          );
           console.log("SUCESS: ", data, variables, context);
           router.replace("/");
         },
         onError(error, variables, context) {
-          alert("ERROR: NFT could not be bought!");
+          alert(
+            lang === "cz"
+              ? "CHYBA: Nákup vybraného NFT neproběhl!"
+              : "ERROR: NFT could not be bought!"
+          );
           console.log("ERROR", error, variables, context);
         },
       }
@@ -182,12 +193,20 @@ function ListingPage({}: Props) {
           },
           {
             onSuccess(data, variables, context) {
-              alert("Offer made successfully!");
+              alert(
+                lang === "cz"
+                  ? "Vaše nabídka byla přijata!"
+                  : "Offer made successfully!"
+              );
               console.log("SUCESS: ", data, variables, context);
               setBidAmount("");
             },
             onError(error, variables, context) {
-              alert("ERROR: Offer could not be made!");
+              alert(
+                lang === "cz"
+                  ? "CHYBA: Vaše nabídka nebyla přijata!"
+                  : "ERROR: Offer could not be made!"
+              );
               console.log("ERROR", error, variables, context);
             },
           }
@@ -206,12 +225,20 @@ function ListingPage({}: Props) {
           },
           {
             onSuccess(data, variables, context) {
-              alert("Bid was made successfully!");
+              alert(
+                lang === "cz"
+                  ? "Váš příhoz v aukci byl přijata!"
+                  : "Bid was made successfully!"
+              );
               console.log("SUCESS: ", data, variables, context);
               setBidAmount("");
             },
             onError(error, variables, context) {
-              alert("ERROR: Bid could not be made!");
+              alert(
+                lang === "cz"
+                  ? "CHYBA: Vaš příhoz v aukci byl odmítnut!"
+                  : "ERROR: Bid could not be made!"
+              );
               console.log("ERROR", error, variables, context);
             },
           }
@@ -229,11 +256,19 @@ function ListingPage({}: Props) {
         <LoadingSpinner
           message={
             makeOfferIsLoading
-              ? "You are making an offer on blockchain ...."
+              ? lang === "cz"
+                ? "Právě probíhá nabíka - komunikuji s blockchainem ..."
+                : "You are making an offer on blockchain ...."
               : buyNowLoading
-              ? "You are now in buying process..."
+              ? lang === "cz"
+                ? "Probíhá nákupní process ..."
+                : "You are now in buying process..."
               : makeBidIsLoading
-              ? "You are making a bid..."
+              ? lang === "cz"
+                ? "Probíhá poces Vaší nabídky ...."
+                : "You are making a bid..."
+              : lang === "cz"
+              ? "Nahrávám detail zalistované položky z blockchainu ..."
               : "Loading listings ..."
           }
         />
@@ -257,18 +292,28 @@ function ListingPage({}: Props) {
             <p className="text-gray-600">{listing.asset.description}</p>
             <p className="flex items-center text-xs sm:text-base">
               <UserCircleIcon className="h-5" />
-              <span className="font-bold pr-1">Seller:</span>
+              <span className="font-bold pr-1">
+                {lang === "cz" ? "Prodávající" : "Seller"}:
+              </span>
               {listing.sellerAddress}
             </p>
           </div>
           <div className="grid grid-cols-2 items-center py-2">
-            <p className="font-bold">Listing Type: </p>
+            <p className="font-bold">
+              {lang === "cz" ? "Typ nabídky" : "Listing Type"}:{" "}
+            </p>
             <p>
               {listing.type === ListingType.Direct
-                ? "Direct listing"
+                ? lang === "cz"
+                  ? "Přímí prodej"
+                  : "Direct listing"
+                : lang === "cz"
+                ? "Nabídka formou aukce"
                 : "Auction listing"}
             </p>
-            <p className="font-bold">Buy it now Price:</p>
+            <p className="font-bold">
+              {lang === "cz" ? "Kup nyní - Cena" : "Buy it now Price"}:
+            </p>
             <p className="text-4xl font-bold">
               {listing.buyoutCurrencyValuePerToken.displayValue}{" "}
               {listing.buyoutCurrencyValuePerToken.symbol}
@@ -277,13 +322,15 @@ function ListingPage({}: Props) {
               onClick={buyNft}
               className="col-start-2 mt-2 bg-[#6D285F] font-bold text-white rounded-full w-44 py-4 px-10"
             >
-              Buy now
+              {lang === "cz" ? "Koupit hned" : "Buy now"}
             </button>
           </div>
 
           {listing.type === ListingType.Direct && offers && (
             <div className="grid grid-cols-2 gap-y-2">
-              <p className="font-bold">Offers:</p>
+              <p className="font-bold">
+                {lang === "cz" ? "Nabídky" : "Offers"}:
+              </p>
               <p className="font-bold">
                 {offers.length > 0 ? offers.length : 0}
               </p>
@@ -316,7 +363,11 @@ function ListingPage({}: Props) {
                             },
                             {
                               onSuccess(data, variables, context) {
-                                alert("Offer accepted successfully!");
+                                alert(
+                                  lang === "cz"
+                                    ? "Nabídka byla úspěšně přijata"
+                                    : "Offer accepted successfully!"
+                                );
                                 console.log(
                                   "SUCESS: ",
                                   data,
@@ -326,7 +377,11 @@ function ListingPage({}: Props) {
                                 router.replace("/");
                               },
                               onError(error, variables, context) {
-                                alert("ERROR: Offer could not accepted!");
+                                alert(
+                                  lang === "cz"
+                                    ? "Chyba: Nabídka nebyla přijata"
+                                    : "ERROR: Offer could not accepted!"
+                                );
                                 console.log("ERROR", error, variables, context);
                               },
                             }
@@ -334,7 +389,7 @@ function ListingPage({}: Props) {
                         }
                         className="p-2 w-32 bg-red-500/50 rounded-lg font-bold text-xs cursor-pointer"
                       >
-                        Accept offer
+                        {lang === "cz" ? "Akceptovat nabídku" : "Accept offer"}
                       </button>
                     )}
                   </div>
@@ -347,7 +402,11 @@ function ListingPage({}: Props) {
             <hr className=" col-span-2" />
             <p className="col-span-2 font-bold">
               {listing.type === ListingType.Direct
-                ? "Make an offer"
+                ? lang === "cz"
+                  ? "Vytvořit nabídku"
+                  : "Make an offer"
+                : lang === "cz"
+                ? "Přihodit v této aukci"
                 : "Bid on this auction"}
             </p>
             {/* */}
@@ -357,7 +416,7 @@ function ListingPage({}: Props) {
                 <p className="font-bold">
                   {minimumNextBid?.displayValue} {minimumNextBid?.symbol}{" "}
                 </p>
-                <p>Time remaining:</p>
+                <p>{lang === "cz" ? "Zbývající čas" : "Time remaining"}:</p>
                 <Countdown
                   date={Number(listing.endTimeInEpochSeconds.toString()) * 1000}
                 />
@@ -373,7 +432,13 @@ function ListingPage({}: Props) {
               onClick={createBidOrOffer}
               className="bg-red-600 font-bold text-white rounded-full w-44 py-4 px-10"
             >
-              {listing.type === ListingType.Direct ? "Offer" : "Bid"}
+              {listing.type === ListingType.Direct
+                ? lang === "cz"
+                  ? "Nabídnout"
+                  : "Offer"
+                : lang === "cz"
+                ? "Příhoz"
+                : "Bid"}
             </button>
           </div>
         </section>

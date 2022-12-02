@@ -51,6 +51,7 @@ function addItem({}: Props) {
     };
 
     try {
+      console.log("MintAddresses: ", address, "Metadata: ", metadata);
       const tx = await contract.mintTo(address, metadata);
 
       const receipt = tx.receipt; //the transaction receipt
@@ -60,7 +61,7 @@ function addItem({}: Props) {
       console.log(receipt, tokenId, nft);
       router.push("/");
     } catch (error) {
-      console.error(error);
+      console.error(error, "error");
     }
   };
   //console.log(address);
